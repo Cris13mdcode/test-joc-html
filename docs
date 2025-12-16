@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Test Publicare - Imagine Rotită</title>
+  <style>
+    body {background:#1e1e1e;color:#eee;font-family:sans-serif;text-align:center;}
+    canvas {background:#333;display:block;margin: 30px auto;}
+    .controls {margin:30px;}
+    .btn {padding:20px 30px;font-size:2em;margin:10px;border:none;border-radius:8px;background:#036;color:#fff;}
+    .btn:active {background:#06c;}
+  </style>
+</head>
+<body>
+  <h1>Test Publicare - Imagine Rotită</h1>
+  <canvas id="c" width="400" height="400"></canvas>
+  <div class="controls">
+    <button class="btn" onclick="setAngle(0)">↑</button>
+    <button class="btn" onclick="setAngle(90)">←</button>
+    <button class="btn" onclick="setAngle(180)">↓</button>
+    <button class="btn" onclick="setAngle(-90)">→</button>
+  </div>
+  <div>Folosește tastele <b>W A S D</b> sau butoanele pentru rotire.<br>ESC închide doar pe desktop.</div>
+  <script>
+    const canvas = document.getElementById('c');
+    const ctx = canvas.getContext('2d');
+    let angle = 0;
+    function setAngle(a) { angle = a; draw(); }
+    window.addEventListener('keydown', e=>{
+      if (e.key==='w'||e.key==='W') setAngle(0);
+      if (e.key==='a'||e.key==='A') setAngle(90);
+      if (e.key==='s'||e.key==='S') setAngle(180);
+      if (e.key==='d'||e.key==='D') setAngle(-90);
+    });
+    function draw() {
+      ctx.clearRect(0,0,400,400);
+      ctx.save();
+      ctx.translate(200,200);
+      ctx.rotate(angle * Math.PI/180);
+      ctx.fillStyle='#00b4ff';
+      ctx.fillRect(-75,-75,150,150);
+      ctx.strokeStyle='#fff';
+      ctx.lineWidth=8;
+      ctx.strokeRect(-65,-65,130,130);
+      ctx.restore();
+    }
+    draw();
+  </script>
+</body>
+</html>
